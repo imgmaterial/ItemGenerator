@@ -1,0 +1,59 @@
+@page "/ItemCreator"
+@using System.Diagnostics
+<app>
+    @rendermode InteractiveServer
+</app>
+<h3>Select a Fruit:</h3>
+<button @onclick="()=>AddDropDown()">+</button>
+@foreach (DropDownModel dropDown in dropDownMenus)
+{
+    <select @bind="dropDown.SelectedValue">
+        <option value=""></option>
+        <option value="Health">Health</option>
+        <option value="Strength">Strength</option>
+        <option value="Agility">Agility</option>
+        <option value="Intellect">Intellect</option>
+    </select>
+}
+@foreach (DropDownModel dropDown in dropDownMenus)
+{
+    <p>You selected: @dropDown.SelectedValue</p>
+}
+
+<InputFile OnChange="OnFileSelected"/>
+
+<!-- Display the selected image -->
+<img src="@imageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;" />
+
+
+@code {
+
+List<DropDownModel> dropDownMenus = new List<DropDownModel>();
+
+void AddDropDown()
+{
+    dropDownMenus.Add(new DropDownModel());
+}
+
+public class DropDownModel
+{
+    public string SelectedValue { get; set; }
+}
+
+private string imageUrl;
+
+// Method to handle file selection
+private async Task OnFileSelected(InputFileChangeEventArgs e)
+{
+    var file = e.File;  // Get the selected file
+    if (file != null)
+    {
+        // Create a memory stream to hold the image
+        using var stream = new MemoryStream();
+        await file.OpenReadStream().CopyToAsync(stream);
+
+        // Convert the image to base64 string
+        imageUrl = $"data:{file.ContentType};base64,{Convert.ToBase64String(stream.ToArray())}";
+    }
+}
+}
