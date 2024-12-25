@@ -10,7 +10,7 @@ public class ItemManager
         Items = new List<Item>();
         ItemAttributes =
         [
-            "Health", "Mana", "Attack Damage", "Armor", "Strength", "Agility", "Intellect", "HP Regen", "MP Regen" +
+            "Health", "Mana", "Attack Damage", "Armor", "Strength", "Agility", "Intellect", "HP Regen", "MP Regen" ,
             "Spell Damage Amplification",
             "Attack Range", "Cooldown Reduction"
         ];

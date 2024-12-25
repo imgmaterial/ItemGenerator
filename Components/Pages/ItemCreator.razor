@@ -1,5 +1,6 @@
 @page "/ItemCreator"
 @using System.Diagnostics
+@using TestBlazor.Services
 <app>
     @rendermode InteractiveServer
 </app>
@@ -7,56 +8,63 @@
     <h1>Item Generator</h1>
     <p>Easily create new item suggestions</p>
 </header>
-<button @onclick="()=>AddDropDown()">Add an extra item stat</button>
 <div style="flex: 1; background-color: lightblue; padding: 10px;">
-@foreach (DropDownModel dropDown in dropDownMenus)
-{   <p>
-    <select @bind="dropDown.Attribute">
-        <option value=""></option>
-        <option value="Health">Health</option>
-        <option value="Strength">Strength</option>
-        <option value="Agility">Agility</option>
-        <option value="Intellect">Intellect</option>
-    </select>
-    <input @bind="dropDown.AttributeValue"/>
-    </p>
-}
+    <p>Item Name</p>
+    <input @bind="_itemName" />
+    <p><InputFile OnChange="OnFileSelected"/></p>
+    @if (!string.IsNullOrEmpty(_imageUrl))
+    {
+    <img src="@_imageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
+    }
+    <p>Item Description</p>
+    <textarea rows="5" @bind="_itemDescription"></textarea>
+    <p>Item Attributes</p>
+    <button @onclick="()=>AddDropDown()">Add an extra item stat</button>
+    @foreach (DropDownModel dropDown in dropDownMenus)
+    {
+        <p>
+            <select @bind="dropDown.Attribute">
+                @foreach (string attri in _itemManager.ItemAttributes)
+                {
+                    <option value="@attri">@attri</option>
+                }
+            </select>
+            <input @bind="dropDown.AttributeValue"/>
+        </p>
+    }
 </div>
 @foreach (DropDownModel dropDown in dropDownMenus)
 {
     <p>@dropDown.Attribute with value @dropDown.AttributeValue</p>
 }
 
-<InputFile OnChange="OnFileSelected"/>
-
-@if (!string.IsNullOrEmpty(_imageUrl))
-{
-    <img src="@_imageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
-}
-
 @code {
 
-List<DropDownModel> dropDownMenus = new List<DropDownModel>();
+    ItemManager _itemManager = new ItemManager();
 
-void AddDropDown()
-{
-    dropDownMenus.Add(new DropDownModel());
-}
+    List<DropDownModel> dropDownMenus = new List<DropDownModel>();
+    
+    private string _imageUrl = string.Empty;
+    private string _itemName = string.Empty;
+    private string _itemDescription = string.Empty;
 
-public class DropDownModel
-{
-    public string Attribute { get; set; } = string.Empty;
-    public float AttributeValue { get; set; }
-}
+    void AddDropDown()
+    {
+        dropDownMenus.Add(new DropDownModel());
+    }
 
-private string _imageUrl = string.Empty;
+    public class DropDownModel
+    {
+        public string Attribute { get; set; } = string.Empty;
+        public float AttributeValue { get; set; }
+    }
 
 
-private async Task OnFileSelected(InputFileChangeEventArgs e)
-{
-    var file = e.File; 
-    using var stream = new MemoryStream();
-    await file.OpenReadStream().CopyToAsync(stream);
-    _imageUrl = $"data:{file.ContentType};base64,{Convert.ToBase64String(stream.ToArray())}";
-}
+    private async Task OnFileSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File; 
+        using var stream = new MemoryStream();
+        await file.OpenReadStream().CopyToAsync(stream);
+        _imageUrl = $"data:{file.ContentType};base64,{Convert.ToBase64String(stream.ToArray())}";
+    }
 }
