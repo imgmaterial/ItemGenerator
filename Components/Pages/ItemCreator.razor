@@ -9,17 +9,25 @@
     <p>Easily create new item suggestions</p>
 </header>
 <div class="container">
-    <p>Item Name</p>
-    <input class="input-field"@bind="_itemName" />
-    <p><InputFile OnChange="OnFileSelected"/></p>
-    @if (!string.IsNullOrEmpty(_imageUrl))
-    {
-    <img src="@_imageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
-    }
-    <p>Item Description</p>
-    <textarea class="text-input" rows="5" @bind="_itemDescription"></textarea>
+    <div class="horizontal-layout">
+        <div>
+            <p>Item Name</p>
+            <input class="input-field"@bind="_itemName"/>
+            <p>Item Description</p>
+            <textarea class="text-input" rows="5" @bind="_itemDescription"></textarea>
+        </div>
+        <div>
+            <p>File Upload</p>
+            <p><InputFile OnChange="OnFileSelected"/></p>
+            @if (!string.IsNullOrEmpty(_imageUrl))
+            {
+                <img src="@_imageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
+            }
+        </div>
+    </div>
     <p>Item Attributes</p>
-    <button class="btn-primary" @onclick="()=>AddDropDown()">Add an extra item stat</button>
+    <button class="btn-primary" @onclick="() => AddDropDown()">Add an extra item stat</button>
+    
     @foreach (DropDownModel dropDown in dropDownMenus)
     {
         <p>
