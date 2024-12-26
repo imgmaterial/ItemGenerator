@@ -8,28 +8,28 @@
     <h1>Item Generator</h1>
     <p>Easily create new item suggestions</p>
 </header>
-<div style="flex: 1; background-color: lightblue; padding: 10px;">
+<div class="container">
     <p>Item Name</p>
-    <input @bind="_itemName" />
+    <input class="input-field"@bind="_itemName" />
     <p><InputFile OnChange="OnFileSelected"/></p>
     @if (!string.IsNullOrEmpty(_imageUrl))
     {
     <img src="@_imageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
     }
     <p>Item Description</p>
-    <textarea rows="5" @bind="_itemDescription"></textarea>
+    <textarea class="text-input" rows="5" @bind="_itemDescription"></textarea>
     <p>Item Attributes</p>
-    <button @onclick="()=>AddDropDown()">Add an extra item stat</button>
+    <button class="btn-primary" @onclick="()=>AddDropDown()">Add an extra item stat</button>
     @foreach (DropDownModel dropDown in dropDownMenus)
     {
         <p>
-            <select @bind="dropDown.Attribute">
+            <select class="dropdown-items" @bind="dropDown.Attribute">
                 @foreach (string attri in _itemManager.ItemAttributes)
                 {
                     <option value="@attri">@attri</option>
                 }
             </select>
-            <input @bind="dropDown.AttributeValue"/>
+            <input class="input-field" @bind="dropDown.AttributeValue"/>
         </p>
     }
 </div>
