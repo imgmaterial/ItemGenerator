@@ -1,11 +1,11 @@
 namespace TestBlazor.Services;
 
-public class Attribute
+public class ItemAttribute
 {
     public string Name { get; set; }
     public float Value { get; set; }
 
-    public Attribute(string name, float value)
+    public ItemAttribute(string name, float value)
     {
         this.Name = name;
         this.Value = value;

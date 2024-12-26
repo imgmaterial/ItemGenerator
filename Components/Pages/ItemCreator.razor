@@ -1,6 +1,7 @@
 @page "/ItemCreator"
 @using System.Diagnostics
 @using TestBlazor.Services
+@using Attribute = System.Attribute
 <app>
     @rendermode InteractiveServer
 </app>
@@ -40,11 +41,27 @@
             <input class="input-field" @bind="dropDown.AttributeValue"/>
         </p>
     }
+    <div>
+        <button class="btn-primary" @onclick="()=>AddItem()">Add Item</button>
+    </div>
 </div>
-@foreach (DropDownModel dropDown in dropDownMenus)
-{
-    <p>@dropDown.Attribute with value @dropDown.AttributeValue</p>
-}
+<div class="horizontal-layout">
+    @if (_itemManager.Items.Count > 0)
+    {
+        <div>
+        @foreach (Item item in _itemManager.Items)
+        {
+            <p>@item.Name</p>
+            <p>@item.Description</p>
+            <img src="@item.ImageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
+            foreach (ItemAttribute attri in item.Attributes)
+            {
+                <p>@attri.Value  @attri.Name</p>
+            }
+        }
+        </div>
+    }
+</div>
 
 @code {
 
@@ -74,5 +91,17 @@
         using var stream = new MemoryStream();
         await file.OpenReadStream().CopyToAsync(stream);
         _imageUrl = $"data:{file.ContentType};base64,{Convert.ToBase64String(stream.ToArray())}";
+    }
+
+    private void AddItem()
+    {
+        List<ItemAttribute> attributes = new List<ItemAttribute>();
+        foreach (DropDownModel dropDown in dropDownMenus)
+        {
+            ItemAttribute itemAttribute = new ItemAttribute(dropDown.Attribute, dropDown.AttributeValue);
+            attributes.Add(itemAttribute);
+        }
+        Item item = new Item(_itemName, _itemDescription, _imageUrl, attributes);
+        _itemManager.Items.Add(item);
     }
 }
