@@ -47,3 +47,14 @@
     color: #f5f5f5;
     margin-bottom: 20px;
 }
+
+.container-item{
+    max-width: 250px;
+    margin: 0 auto;
+    background-color: #526D82;
+    padding: 10px;
+    border-radius: 8px;
+    border-color: #27374D;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    color: #DDE6ED;
+}

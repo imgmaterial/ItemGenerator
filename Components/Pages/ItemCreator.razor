@@ -45,21 +45,25 @@
         <button class="btn-primary" @onclick="()=>AddItem()">Add Item</button>
     </div>
 </div>
-<div class="horizontal-layout">
+<div class="container horizontal-layout">
     @if (_itemManager.Items.Count > 0)
     {
-        <div>
         @foreach (Item item in _itemManager.Items)
         {
-            <p>@item.Name</p>
-            <p>@item.Description</p>
-            <img src="@item.ImageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
-            foreach (ItemAttribute attri in item.Attributes)
-            {
-                <p>@attri.Value  @attri.Name</p>
-            }
+            <div class="horizontal-layout container-item">
+            <div>
+                <p>@item.Name</p>
+                <p>@item.Description</p>
+                @foreach (ItemAttribute attri in item.Attributes)
+                {
+                    <p>@attri.Value  @attri.Name</p>
+                }
+            </div>
+            <div>
+                <img src="@item.ImageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
+            </div>
+            </div>
         }
-        </div>
     }
 </div>
 
