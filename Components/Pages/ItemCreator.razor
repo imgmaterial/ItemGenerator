@@ -13,9 +13,16 @@
     <div class="horizontal-layout">
         <div>
             <p>Item Name</p>
-            <input class="input-field"@bind="_itemName"/>
+            <input class="input-field" @bind="_itemName"/>
             <p>Item Description</p>
             <textarea class="text-input" rows="5" @bind="_itemDescription"></textarea>
+            <p>Item Type</p>
+            <select class="dropdown-items">
+                @foreach (string type in _itemManager.ItemTypes)
+                {
+                <option value="@type">@type</option>
+                }
+            </select>
         </div>
         <div>
             <p>File Upload</p>
@@ -53,7 +60,7 @@
         @foreach (Item item in _itemManager.Items)
         {
             <div class="horizontal-layout container-item">
-            <div>
+            <div style="width: 150px">
                 <p>@item.Name</p>
                 <p>@item.Description</p>
                 @foreach (ItemAttribute attri in item.Attributes)
@@ -61,7 +68,7 @@
                     <p>@attri.Value  @attri.Name</p>
                 }
             </div>
-            <div class="image-container">
+            <div class="image-container-small">
                 <img src="@item.ImageUrl" alt="Uploaded Image"/>
             </div>
             </div>

@@ -4,6 +4,7 @@ public class ItemManager
 {
     public List<Item> Items { get; set; }
     public List<string> ItemAttributes { get; set; }
+    public List<string> ItemTypes { get; set; }
 
     public ItemManager()
     {
@@ -14,5 +15,6 @@ public class ItemManager
             "Spell Damage Amplification",
             "Attack Range", "Cooldown Reduction"
         ];
+        ItemTypes = ["Head", "Chest", "Weapon", "Accessory", "Boots", "Consumable", "Miscellaneous"];
     }
 }
