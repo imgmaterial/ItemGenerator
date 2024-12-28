@@ -22,7 +22,9 @@
             <p><InputFile OnChange="OnFileSelected"/></p>
             @if (!string.IsNullOrEmpty(_imageUrl))
             {
-                <img src="@_imageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
+                <div class="image-container">
+                    <img src="@_imageUrl" alt="Uploaded Image"/>
+                </div>
             }
         </div>
     </div>
@@ -59,8 +61,8 @@
                     <p>@attri.Value  @attri.Name</p>
                 }
             </div>
-            <div>
-                <img src="@item.ImageUrl" alt="Uploaded Image" style="max-width: 100%; max-height: 400px;"/>
+            <div class="image-container">
+                <img src="@item.ImageUrl" alt="Uploaded Image"/>
             </div>
             </div>
         }
