@@ -23,7 +23,14 @@ public class Item
 
     public string ProduceItemString()
     {
-        string output = $"{{\n {this.Name}\n {this.ItemType}\n {this.Description}\n }}\n";
+        string attributeString = "[\n";
+        foreach (ItemAttribute attribute in Attributes)
+        {
+            attributeString += $"\t{attribute.Name}:{attribute.Value}\n";
+        }
+
+        attributeString += "]";
+        string output = $"{{\n Name:{this.Name}\n ItemType:{this.ItemType}\n Description:{this.Description}\n Attributes:{attributeString}}}\n";
         return output;
     }
 }
