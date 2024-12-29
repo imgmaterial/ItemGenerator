@@ -20,9 +20,11 @@
             <select @bind="_itemType"  class="dropdown-items">
                 @foreach (string type in _itemManager.ItemTypes)
                 {
-                <option value="@type">@type</option>
+                    <option value="@type">@type</option>
                 }
             </select>
+            <p>Unique Effect</p>
+            <textarea class="text-input" rows="5" @bind="_uniqueEffect"></textarea>
         </div>
         <div>
             <p>File Upload</p>
@@ -33,6 +35,11 @@
                     <img src="@_imageUrl" alt="Uploaded Image"/>
                 </div>
             }
+        </div>
+        <div>
+            <p>String Representation</p>
+            <textarea class="text-input-large" rows="15" @bind="@_stringRepresentation"></textarea>
+            <button class="btn-primary" @onclick="() => ProduceStringRepresentation()">Create Item Strings</button>
         </div>
     </div>
     <p>Item Attributes</p>
@@ -75,12 +82,6 @@
             </div>
         }
     }
-</div>
-<div>
-    <button @onclick="()=>ProduceStringRepresentation()">Create Item Strings</button>
-</div>
-<div>
-    <textarea @bind="@_stringRepresentation"></textarea>
 </div>
 
 @code {

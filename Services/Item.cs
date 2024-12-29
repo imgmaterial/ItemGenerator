@@ -30,7 +30,7 @@ public class Item
         }
 
         attributeString += "]";
-        string output = $"{{\n Name:{this.Name}\n ItemType:{this.ItemType}\n Description:{this.Description}\n Attributes:{attributeString}}}\n";
+        string output = $"{{\n Name:{this.Name}\n ItemType:{this.ItemType}\n Description:{this.Description}\n Attributes:{attributeString}\n UniqueEffect:{this.UniqueEffect}}}\n";
         return output;
     }
 }
