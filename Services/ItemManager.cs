@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace TestBlazor.Services;
 
 public class ItemManager
@@ -16,5 +18,18 @@ public class ItemManager
             "Attack Range", "Cooldown Reduction"
         ];
         ItemTypes = ["Head", "Chest", "Weapon", "Accessory", "Boots", "Consumable", "Miscellaneous"];
+    }
+
+    public string ProduceItemStrings()
+    {
+        string output = string.Empty;
+        foreach (Item item in Items)
+        {
+            output += item.ProduceItemString();
+        }
+        Console.WriteLine(output);
+        output = $"{{{output}}}";
+        Console.WriteLine(output);
+        return output;
     }
 }

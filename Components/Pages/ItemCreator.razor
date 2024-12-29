@@ -17,7 +17,7 @@
             <p>Item Description</p>
             <textarea class="text-input" rows="5" @bind="_itemDescription"></textarea>
             <p>Item Type</p>
-            <select class="dropdown-items">
+            <select @bind="_itemType"  class="dropdown-items">
                 @foreach (string type in _itemManager.ItemTypes)
                 {
                 <option value="@type">@type</option>
@@ -60,20 +60,24 @@
         @foreach (Item item in _itemManager.Items)
         {
             <div class="horizontal-layout container-item">
-            <div style="width: 150px">
-                <p>@item.Name</p>
-                <p>@item.Description</p>
-                @foreach (ItemAttribute attri in item.Attributes)
-                {
-                    <p>@attri.Value  @attri.Name</p>
-                }
-            </div>
-            <div class="image-container-small">
-                <img src="@item.ImageUrl" alt="Uploaded Image"/>
-            </div>
+                <div style="width: 150px">
+                    <p>@item.Name</p>
+                    <p>@item.ItemType</p>
+                    <p>@item.Description</p>
+                    @foreach (ItemAttribute attri in item.Attributes)
+                    {
+                        <p>@attri.Value  @attri.Name</p>
+                    }
+                </div>
+                <div class="image-container-small">
+                    <img src="@item.ImageUrl" alt="Uploaded Image"/>
+                </div>
             </div>
         }
     }
+</div>
+<div>
+    <button @onclick="()=>_itemManager.ProduceItemStrings()">Create Item Strings</button>
 </div>
 
 @code {
@@ -85,7 +89,8 @@
     private string _imageUrl = string.Empty;
     private string _itemName = string.Empty;
     private string _itemDescription = string.Empty;
-
+    private string _itemType = string.Empty;
+    private string _uniqueEffect = string.Empty;
     void AddDropDown()
     {
         dropDownMenus.Add(new DropDownModel());
@@ -114,7 +119,7 @@
             ItemAttribute itemAttribute = new ItemAttribute(dropDown.Attribute, dropDown.AttributeValue);
             attributes.Add(itemAttribute);
         }
-        Item item = new Item(_itemName, _itemDescription, _imageUrl, attributes);
+        Item item = new Item(_itemName,_itemType, _itemDescription, _imageUrl, _uniqueEffect,attributes);
         _itemManager.Items.Add(item);
     }
 }
