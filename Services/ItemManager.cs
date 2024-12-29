@@ -28,7 +28,7 @@ public class ItemManager
             output += item.ProduceItemString();
         }
         Console.WriteLine(output);
-        output = $"{{{output}}}";
+        output = $"{{\n {output}}}";
         Console.WriteLine(output);
         return output;
     }

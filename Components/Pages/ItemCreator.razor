@@ -77,7 +77,10 @@
     }
 </div>
 <div>
-    <button @onclick="()=>_itemManager.ProduceItemStrings()">Create Item Strings</button>
+    <button @onclick="()=>ProduceStringRepresentation()">Create Item Strings</button>
+</div>
+<div>
+    <textarea @bind="@_stringRepresentation"></textarea>
 </div>
 
 @code {
@@ -91,6 +94,13 @@
     private string _itemDescription = string.Empty;
     private string _itemType = string.Empty;
     private string _uniqueEffect = string.Empty;
+    private string _stringRepresentation = string.Empty;
+
+    void ProduceStringRepresentation()
+    {
+        _stringRepresentation = _itemManager.ProduceItemStrings();
+    }
+    
     void AddDropDown()
     {
         dropDownMenus.Add(new DropDownModel());

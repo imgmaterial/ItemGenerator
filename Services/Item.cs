@@ -23,7 +23,7 @@ public class Item
 
     public string ProduceItemString()
     {
-        string output = string.Format("{0}\n{1}\n{2}\n", this.Name, this.ItemType,this.Description);
+        string output = $"{{\n {this.Name}\n {this.ItemType}\n {this.Description}\n }}\n";
         return output;
     }
 }
